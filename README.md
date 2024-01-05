@@ -22,7 +22,7 @@ relink.
 	
 	- ircserv
 
-## FICHIERS
+## Fichiers:
 
 	- Makefile -> NAME, all, clean, fclean, re
 	- *.{h, hpp}
@@ -74,14 +74,22 @@ relink.
 
 • Votre exécutable sera exécuté comme suit :
 
-'''cpp
+```cpp
 ./ircserv <port> <password>
-'''
+```
 
 • port:
-- Le numéro de port sur lequel votre serveur IRC écoutera les connexions IRC entrantes.
 
-• 
+	- Le numéro de port sur lequel votre serveur IRC écoutera les connexions IRC entrantes.
+
+• password:
+
+	- Le mot de passe de connexion.
+ 	- Il sera nécessaire à tout client IRC qui essaiera de se connecter à votre serveur.
+  
+> Même si poll() est mentionné dans le sujet et l'échelle d'évaluation, vous pouvez
+> utiliser un équivalent tel que select(), kqueue() ou epoll().
+
 • 
 • 
 
