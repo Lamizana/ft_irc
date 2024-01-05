@@ -91,14 +91,14 @@ Par exemple, choisissez:
 
 	- Le mot de passe de connexion.
  	- Il sera nécessaire à tout client IRC qui essaiera de se connecter à votre serveur.
-  
+> [!NOTE]
 > Même si poll() est mentionné dans le sujet et l'échelle d'évaluation, vous pouvez
 > utiliser un équivalent tel que select(), kqueue() ou epoll().
 
 ## Exigences:
 
 - Le serveur doit être capable de gérer plusieurs clients en même temps et de ne jamais se bloquer.
-- forkc() n'est pas autorisée. Toutes les opérations d'E/S doivent être non bloquantes.
+- fork() n'est pas autorisée. Toutes les opérations d'E/S doivent être non bloquantes.
 - Un seul poll() (ou équivalent) peut être utilisé pour gérer toutes ces opérations (lecture, écriture, mais aussi écoute, etc...).
 
 >  [!CAUTION]
@@ -109,6 +109,35 @@ Par exemple, choisissez:
 > Ainsi, si vous essayez de lire/recourir ou d'écrire/envoyer dans n'importe quel descripteur de fichier
 > sans utiliser poll() (ou équivalent), votre note sera de 0.
 
+- Il existe plusieurs clients IRC. Vous devez choisir l'un d'entre eux comme référence:
+	- Votre client de référence sera utilisé pendant le processus d'évaluation.
+- Votre client de référence doit pouvoir se connecter à votre serveur sans rencontrer d'erreur.
+- La communication entre le client et le serveur doit se faire via TCP/IP (v4 ou v6).
+
+- L'utilisation de votre client de référence avec votre serveur doit être similaire à son utilisation avec n'importe quel serveur IRC officiel.
+Cependant, vous n'avez qu'à implémenter les fonctionnalités suivantes :
+	- Vous devez être en mesure:
+ 		- de vous authentifier
+		- de définir un pseudonyme
+		- un nom d'utilisateur
+		- de rejoindre un canal
+		- envoyer et recevoir des messages privés en utilisant votre client de référence.
+	- Tous les messages envoyés par un client à un canal doivent être transmis à tous les autres clients qui ont rejoint le canal.
+ 	- Vous devez avoir des opérateurs et des utilisateurs réguliers.
+  	- Ensuite, vous devez mettre en œuvre les commandes spécifiques aux opérateurs de canaux
+des opérateurs:
+		- KICK   -> Ejecter un client du canal.
+  		- INVITE -> Inviter un client à un canal.
+  	 	- TOPIC  -> Modifier ou afficher le thème du canal.
+  	  	- MODE   -> Changer le mode du canal :
+  
+| Commande en MODE | Description |
+| --- | --- |
+| i | Définir/supprimer un canal sur invitation uniquement |
+| t | Définir/supprimer les restrictions de la commande TOPIC pour les opérateurs de canaux |
+| k | Définir/supprimer la clé de canal (mot de passe) |
+| o | Donner/reprendre le privilège de l'opérateur du canal |
+| l | Définir/supprimer la limite d'utilisateurs pour le canal |
 
 
 
@@ -118,6 +147,21 @@ Par exemple, choisissez:
 
 
 
-> Mais il consommerait plus de ressources système.
-> Ainsi, si vous essayez de lire/recourir ou d'écrire/envoyer dans n'importe quel descripteur de fichier
-> sans utiliser poll() (ou équivalent), votre note sera de 0.
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
