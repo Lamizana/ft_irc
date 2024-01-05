@@ -9,11 +9,16 @@ votre note sera de 0.
 - Vous devez fournir un Makefile qui compilera vos fichiers sources. Il ne doit pas
 relink.
 - Votre Makefile doit au moins contenir les règles suivantes :
+```
 	- $(NAME), all, clean, fclean et re.
+```
 - Compilez votre code avec c++ et les drapeaux -Wall -Wextra -Werror
 - Votre code doit être conforme à la norme C++ 98.
-- Essayez de toujours développer en utilisant le plus de fonctionnalités C++ possible (par exemple, choisissez
- - <cstring> plutôt que <string.h>). 
+- Essayez de toujours développer en utilisant le plus de fonctionnalités C++ possible.
+Par exemple, choisissez:
+```
+- <cstring> plutôt que <string.h>
+``` 
 - Les bibliothèques externes et les bibliothèques Boost sont interdites.
 
 # Partie obligatoire
@@ -99,7 +104,20 @@ relink.
 >  [!CAUTION]
 > Comme vous devez utiliser des descripteurs de fichiers non bloquants, il est possible d'utiliser 
 > des fonctions de lecture/récupération ou d'écriture/envoi sans poll() (ou équivalent), et votre serveur ne serait pas bloquant.
-> 
+>
+> Mais il consommerait plus de ressources système.
+> Ainsi, si vous essayez de lire/recourir ou d'écrire/envoyer dans n'importe quel descripteur de fichier
+> sans utiliser poll() (ou équivalent), votre note sera de 0.
+
+
+
+
+
+
+
+
+
+
 > Mais il consommerait plus de ressources système.
 > Ainsi, si vous essayez de lire/recourir ou d'écrire/envoyer dans n'importe quel descripteur de fichier
 > sans utiliser poll() (ou équivalent), votre note sera de 0.
