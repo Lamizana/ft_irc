@@ -139,29 +139,38 @@ des opérateurs:
 | o | Donner/reprendre le privilège de l'opérateur du canal |
 | l | Définir/supprimer la limite d'utilisateurs pour le canal |
 
+## Pour MacOS seulement:
 
+> [!IMPORTANT]
+> Comme MacOS n'implémente pas write() de la même manière que les autres systèmes d'exploitation Unix, vous êtes autorisé à utiliser fcntl().
+>
+> Vous devez utiliser les descripteurs de fichiers en mode non bloquant afin d'obtenir un
+> comportement similaire à celui des autres systèmes d'exploitation Unix.
 
+> [!CAUTION]
+> Cependant, vous ne pouvez utiliser fcntl() que de la manière suivante, tout autre drapeau est interdit :
+```cpp
+fcntl(fd, F_SETFL, O_NONBLOCK) ;
+```
 
+## Exemple test:
+- Vérifier absolument toutes les erreurs et tous les problèmes possibles (réception de données partielles, faible largeur de bande, etc...).
+- Pour s'assurer que votre serveur traite correctement tout ce que vous lui envoyez, vous pouvez effectuer le test simple suivant en utilisant nc:
+```
+\$> nc 127.0.0.1 6667
+com^Dman^Dd
+\$>
+```
 
+- Utilisez ctrl+D pour envoyer la commande en plusieurs parties : 'com', puis 'man', puis 'd\n'.
+- Pour traiter une commande, il faut d'abord agréger les paquets reçus afin de la reconstruire.
 
+# PARTIE BONUS
 
+- Voici les fonctions supplémentaires que vous pouvez ajouter à votre serveur IRC pour qu'il ressemble encore plus à un serveur IRC réel.
+véritable serveur IRC :
+	- Gérer le transfert de fichiers.
+	- Un bot.
 
-
-
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+> [!CAUTION]
+> La partie bonus ne sera évaluée que si la partie obligatoire est PARFAITE. Parfaite signifie que la partie > obligatoire a été intégralement réalisée et fonctionne sans dysfonctionnement. Si vous n'avez pas > satisfait à TOUTES les exigences obligatoires, votre partie bonus ne sera pas évaluée du tout !
