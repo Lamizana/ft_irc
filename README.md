@@ -90,6 +90,8 @@ relink.
 > Même si poll() est mentionné dans le sujet et l'échelle d'évaluation, vous pouvez
 > utiliser un équivalent tel que select(), kqueue() ou epoll().
 
-• 
-• 
+## Exigences:
 
+- Le serveur doit être capable de gérer plusieurs clients en même temps et de ne jamais se bloquer.
+- forkc() n'est pas autorisée. Toutes les opérations d'E/S doivent être non bloquantes.
+- Un seul poll() (ou équivalent) peut être utilisé pour gérer toutes ces opérations (lecture, écriture, mais aussi écoute, etc.),
