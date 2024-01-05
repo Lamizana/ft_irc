@@ -94,4 +94,12 @@ relink.
 
 - Le serveur doit être capable de gérer plusieurs clients en même temps et de ne jamais se bloquer.
 - forkc() n'est pas autorisée. Toutes les opérations d'E/S doivent être non bloquantes.
-- Un seul poll() (ou équivalent) peut être utilisé pour gérer toutes ces opérations (lecture, écriture, mais aussi écoute, etc.),
+- Un seul poll() (ou équivalent) peut être utilisé pour gérer toutes ces opérations (lecture, écriture, mais aussi écoute, etc...).
+
+>  [!CAUTION]
+> Comme vous devez utiliser des descripteurs de fichiers non bloquants, il est possible d'utiliser 
+> des fonctions de lecture/récupération ou d'écriture/envoi sans poll() (ou équivalent), et votre serveur ne serait pas bloquant.
+> 
+> Mais il consommerait plus de ressources système.
+> Ainsi, si vous essayez de lire/recourir ou d'écrire/envoyer dans n'importe quel descripteur de fichier
+> sans utiliser poll() (ou équivalent), votre note sera de 0.
