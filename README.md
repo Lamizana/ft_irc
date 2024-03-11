@@ -1,6 +1,9 @@
 # PROJET IRC
+> [!IMPORTANT]
+> Creation d'un serveur IRC en C++ capable de faire communiquer plusieurs clients localement.
 
-## Règles générales
+<details>
+<summary>Règles générales</summary>
 
 - Votre programme ne doit en aucun cas se bloquer (même s'il manque de mémoire).
 - Il ne doit pas s'arrêter de manière inattendue.
@@ -20,80 +23,194 @@ Par exemple, choisissez:
 - <cstring> plutôt que <string.h>
 ``` 
 - Les bibliothèques externes et les bibliothèques Boost sont interdites.
+</details>
+
+<details>
+<summary>Serveur IRC</summary>
+	
+- ***Internet Relay Chat*** (IRC ; en français : « discussion relayée par Internet ») est un protocole de communication textuel sur Internet. Il sert à la communication instantanée principalement sous la forme de discussions en groupe par l’intermédiaire de canaux de discussion.
+Il peut par ailleurs être utilisé pour faire du transfert de fichier.
+- IRC est un protocole utilisant TCP et optionelle TLS.
+
+1. **Aspect techniques:**
+- Un serveur IRC peut se connecter à d'autres serveur IRC.
+- Un réseaux IRC est un ensemble de serveur connectés l'un à l'autre.
+- L'utilisateur utilise un logiciel IRC afin de se connecter à un des serveurs du réseaux.
+- Le protocole ouvert est décrit par un RFC:
+	- ***Requests for comments*** ("demandes de commentaires").
+   	- documents décrivant les aspects et spécification techniques d'internet.
+
+> RFC 28102 à RFC 2813
+
+- Un serveur IRC est gérer par un ou plusieurs IrcOps (***IRC OPERATOR***):
+  	- Ils sont nommés par les administrateurs.
+
+2. **Les canaux:**
+- ***Channel*** ("canal"):
+	- Element de base pour communiquer sur un reseaux:
+  	- Un channel est définit par une liste d'utilisateurs connectés à celui-ci.
+- Pour rentrer dans un channel ou le créer:
+```
+join
+```
+> Les canaux pouvant etre vus de tous sur le réseau sont préfixée par #.
+> 
+> Les canaux peuvent etres locaux: 1 seul serveur et préfixée par &.
+
+3. **Les modes:**
+- Options positionnée sur des canaux ou des utilisateurs.
+- affecte leurs modes de fonctionnement, leurs privilèges et leurs intéractions.
+
+4. **Principales commandes:**
+- Les commandes IRC sont toujours définiespar le caractère '/' placé en début de ligne.
+- Elle est envoyée comme message au canal actif.
+- Par exemple pur joindre un canal:
+```
+/join#canal
+```
+> Rejoint un canal public nommée canal.
+
+6. **Bot IRC:**
+
+8. **Les réseaux:**
+
+</details>
+
+<details>
+<summary> Protocole TCP</summary>
+	
+-  ***Transmission Control Protocol*** (littéralement, « protocole de contrôle de transmissions »), abrégé TCP, est un protocole de transport fiable, en mode connecté.
+</details>
+
+<details>
+<summary>protocole DCC</summary>
+	
+- ***Direct Client-to-Client***, protocole utilisé par de nombreux clients IRC qui permet une connections direct entre utilisateurs:
+	- permet d envoyer des fichiers.
+ 	- permet de chatter plus rapidement et de maniere plus securise avec un autre utilisateur.
+</details>
 
 # Partie obligatoire
-
-## Nom du programme:
-	
+### Nom du programme:
 	- ircserv
-
-## Fichiers:
-
+### Fichiers:
 	- Makefile -> NAME, all, clean, fclean, re
 	- *.{h, hpp}
 	- *.cpp
 	- *.tpp
 	- fichiers de configuration optionnels
-
-## Arguments:
-
-	- port: le port d ecoute.
+### Arguments:
+	- port: le port d'écoute.
 	- password: the connection password.
-
 ## Fonctions utilisables:
+- Toutes en C++98.
+<details>
 	
-	- Toutes en C++98.
-	- socket
-	- close
-	- setsockopt
-	- getsockname
-	- getprotobyname
-	- gethostbyname
-	- getaddrinfo
-	- freeaddrinfo
-	- bind
-	- connect
-	- listen
-	- accept
-	- htons
-	- htonl
-	- ntohs
-	- ntohl
-	- inet_addr
-	- inet_ntoa
-	- send
-	- recv
-	- signal
-	- sigaction
-	- lseek
-	- fstat
-	- fcntl
-	- poll
+<summary>Recommandées:</summary>
+
+<details>
+<summary>socket()</summary>
+
+```cpp
+int socket(int family, int type, int protocol);
+```
+	- family: famille du socket: AF_INET pour un socket IPv4.
+	- type: specifie le type de socket, SOCK_STREAM pour TCP 
+	- protocol: definit le protcole, IPPROTO_TCP pour un socket TCP.
+>retourne le socket ou -1 en cas d'erreur.
+</details>
+
+- close
+- setsockopt
+- getsockname
+- getprotobyname
+- gethostbyname
+- getaddrinfo
+- freeaddrinfo
+<details>
+<summary>bind(): assigne une adresse locale à un socket</summary>
+	
+```cpp
+int bind(int sckt, const struct addr* name, int namelen);
+```
+	- sckt est le socket auquel est assigné l'adresse.
+	- name est la structure à assigner au socket.
+	- namelen est la taille de cette structure.
+</details>
+
+- connect
+<details>
+<summary>listen(): permet au socket d'ecouter les connexions entrantes</summary>
+	
+```cpp
+int listen(int sckt, int backlog);
+```
+	- sckt est le socket auquel les clients peuvent se connecter.
+	- backlog est le nombres de connexions pouvant etres gérer.
+ </details>
+ 
+- accept
+- htons
+- htonl
+- ntohs
+- ntohl
+- inet_addr
+- inet_ntoa
+- send
+<details>
+<summary>recv(): réceptionne des données sur le socket placé en paramètre.</summary>
+	
+```cpp
+int recv(int socket, void* buffer, size_t len, int flags);
+```
+ 	- socket: socket duquel receptionner le données.
+  	- buffer: tampon où stocker les données.
+	- len: nombres maximal d'octet a réceptionner.
+ 	- flag: masque d'option. Généralement 0.
+```cpp
+int socket;
+// initialisation et connexion
+char buffer[1024];
+if (recv(socket, buffer, 1024, 0) <= 0)
+        	// erreur ou connexion fermée
+```
+> Retourne le nombre d'octets reçus et stockés dans buffer.
+> 
+> Peut retourner 0 si la connexion a été terminée. Retourne -1 en cas d'erreur.
+</details>
+
+- signal
+- sigaction
+- lseek
+- fstat
+- fcntl
+- poll
+</details>
+
+> [!NOTE]
+> Ne pas hésiter à regarder les fonctions ci-dessus !
 
 ## Description:
 
 • Un serveur IRC en C++98:
 
-	- Vous ne devez pas développer un client.
-	- Vous ne devez pas gérer la communication de serveur à serveur.
+	- Pas besoin de développer un client.
+	- Ne pas gérer la communication de serveur à serveur.
 
-• Votre exécutable sera exécuté comme suit :
-
+• L'exécutable sera exécuté comme suit :
 ```cpp
 ./ircserv <port> <password>
 ```
-
 • port:
 
-	- Le numéro de port sur lequel votre serveur IRC écoutera les connexions IRC entrantes.
-
+	- Le numéro de port sur lequel le serveur IRC écoutera les connexions IRC entrantes.
 • password:
 
 	- Le mot de passe de connexion.
- 	- Il sera nécessaire à tout client IRC qui essaiera de se connecter à votre serveur.
+ 	- Il sera nécessaire à tout client IRC qui essaiera de se connecter au serveur.
 > [!NOTE]
-> Même si poll() est mentionné dans le sujet et l'échelle d'évaluation, vous pouvez
-> utiliser un équivalent tel que select(), kqueue() ou epoll().
+> Même si poll() est mentionné dans le projet, utiliser un équivalent tel que select(),
+>  kqueue() ou epoll() est permit.
 
 ## Exigences:
 
@@ -102,24 +219,24 @@ Par exemple, choisissez:
 - Un seul poll() (ou équivalent) peut être utilisé pour gérer toutes ces opérations (lecture, écriture, mais aussi écoute, etc...).
 
 >  [!CAUTION]
-> Comme vous devez utiliser des descripteurs de fichiers non bloquants, il est possible d'utiliser 
-> des fonctions de lecture/récupération ou d'écriture/envoi sans poll() (ou équivalent), et votre serveur ne serait pas bloquant.
+> Utiliser des descripteurs de fichiers non bloquants, il est possible d'utiliser des fonctions de lecture/récupération ou
+>  d'écriture/envoi sans poll() (ou équivalent), et le serveur ne doit pas etre bloquant.
 >
-> Mais il consommerait plus de ressources système.
-> Ainsi, si vous essayez de lire/recourir ou d'écrire/envoyer dans n'importe quel descripteur de fichier
-> sans utiliser poll() (ou équivalent), votre note sera de 0.
+> Mais il consommera plus de ressources système.
+> 
+> Lire/recourir ou d'écrire/envoyer dans n'importe quel descripteur de fichier
+> sans utiliser poll() (ou équivalent) ne valide pas le projet !
 
-- Il existe plusieurs clients IRC. Vous devez choisir l'un d'entre eux comme référence:
-	- Votre client de référence sera utilisé pendant le processus d'évaluation.
-- Votre client de référence doit pouvoir se connecter à votre serveur sans rencontrer d'erreur.
+- Il existe plusieurs clients IRC. Choisir l'un d'entre eux comme référence:
+	- Le client de référence sera utilisé pendant la présentation.
+- Le client de référence doit pouvoir se connecter à au serveur sans rencontrer d'erreur.
 - La communication entre le client et le serveur doit se faire via TCP/IP (v4 ou v6).
-
-- L'utilisation de votre client de référence avec votre serveur doit être similaire à son utilisation avec n'importe quel serveur IRC officiel.
-Cependant, vous n'avez qu'à implémenter les fonctionnalités suivantes :
-	- Vous devez être en mesure:
- 		- de vous authentifier
-		- de définir un pseudonyme
-		- un nom d'utilisateur
+- L'utilisation du client de référence avec le serveur doit être similaire à son utilisation avec n'importe quel serveur IRC officiel.
+Cependant, implémenter les fonctionnalités suivantes :
+	- être en mesure:
+ 		- de s'authentifier
+		- de définir un pseudonyme (changeable a tout moment)
+		- un nom d'utilisateur (inchangeable)
 		- de rejoindre un canal
 		- envoyer et recevoir des messages privés en utilisant votre client de référence.
 	- Tous les messages envoyés par un client à un canal doivent être transmis à tous les autres clients qui ont rejoint le canal.
@@ -165,6 +282,14 @@ com^Dman^Dd
 - Utilisez ctrl+D pour envoyer la commande en plusieurs parties : 'com', puis 'man', puis 'd\n'.
 - Pour traiter une commande, il faut d'abord agréger les paquets reçus afin de la reconstruire.
 
+### listen:
+```cpp
+int listen(SOCKET sckt, int backlog);
+```
+- Permet au socket d'ecouter les connexions entrantes
+	- sckt est le socket auquel les clients peuvent se connecter.
+	- backlog est le nombres de connexions pouvant etres gérer.
+ 
 # PARTIE BONUS
 
 - Voici les fonctions supplémentaires que vous pouvez ajouter à votre serveur IRC pour qu'il ressemble encore plus à un serveur IRC réel.
