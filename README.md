@@ -37,7 +37,7 @@ Serveur IRC développé en **C++98** (RFC 1459) permettant à plusieurs clients 
 
 ## Installation
 
-### Récupération du dépôt :
+### Récupération du dépôt
 
 ```bash
 git clone https://github.com/Lamizana/ft_irc.git
@@ -77,7 +77,7 @@ make re         # fclean + all
 
 ## Utilisation
 
-### Connexion avec nc :
+### Connexion avec nc
 ```bash
 nc 127.0.0.1 6667
 PASS toto
@@ -86,12 +86,12 @@ USER toto
 JOIN #general
 ```
 
-### Connexion avec un client IRC (HexChat, irssi, WeeChat...) :
+### Connexion avec un client IRC (HexChat, irssi, WeeChat...)
 - Adresse : `127.0.0.1`
 - Port    : `6667`
 - Mot de passe : `toto`
 
-### Commandes implémentées :
+### Commandes implémentées
 
 | Commande | Description |
 | --- | --- |
@@ -108,7 +108,7 @@ JOIN #general
 | PART | Quitter un canal |
 | BOT | Bonus : jouer à Pierre-Papier-Ciseaux |
 
-### Modes de canal (MODE) :
+### Modes de canal (MODE)
 
 | Mode | Description |
 | --- | --- |
@@ -118,7 +118,7 @@ JOIN #general
 | +o / -o | Donner / retirer le statut d'opérateur |
 | +l / -l | Définir / supprimer la limite d'utilisateurs |
 
-### Exécution des commandes :
+### Exécution des commandes
 
 > [!IMPORTANT]
 > - Chaque commande se tape sur **UNE SEULE ligne**, directement dans la connexion (nc ou client IRC), **sans slash** (le `/` est un raccourci propre aux clients graphiques, pas au protocole brut).
@@ -178,13 +178,13 @@ hexchat
 - Dans « Serveurs », ajouter `127.0.0.1/6667` puis cliquer sur **Connecter**.
 
 ### Ou en commandes internes à HexChat :
-```
+```bash
 /server 127.0.0.1 6667 toto
 /join #general
 ```
 
 ### Exemple de session :
-```
+```bash
 /server 127.0.0.1 6667 toto
 /join #general
 /topic #general Bienvenue
@@ -226,7 +226,7 @@ Ouvrir plusieurs terminaux et se connecter simultanément (`nc 127.0.0.1 <port>`
 
 ### Réception de données partielles
 Envoyer une commande en plusieurs fragments avec nc et Ctrl+D :
-```
+```bash
 $> nc 127.0.0.1 6667
 com^Dman^Dd
 $>
