@@ -1,8 +1,28 @@
+<div align="center">
+
+<p align="center">
+    <a href="https://isocpp.org/"><img src="https://img.shields.io/badge/Language-C%2B%2B98-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++98"></a>
+    <a href="https://datatracker.ietf.org/doc/html/rfc1459"><img src="https://img.shields.io/badge/Protocol-RFC_1459-000000?style=for-the-badge&logo=internetexplorer&logoColor=white" alt="RFC 1459"></a>
+    <a href="https://github.com/42School/norminette"><img src="https://img.shields.io/badge/Code_Style-Norminette-brightgreen?style=for-the-badge&logo=42&logoColor=white" alt="Norminette"></a>
+    <a href="https://hexchat.github.io/"><img src="https://img.shields.io/badge/Compatibility-HexChat-02A8F3?style=for-the-badge&logo=chat&logoColor=white" alt="HexChat"></a>
+    <a href="https://fr.wikipedia.org/wiki/École_42"><img src="https://img.shields.io/badge/Licence-42-lightgrey?style=for-the-badge&logo=42&logoColor=white" alt="Licence 42"></a>
+</p>
+
 # FT_IRC
 
-Serveur IRC développé en **C++98** (RFC 1459) permettant à plusieurs clients de communiquer en temps réel via TCP/IP (IPv4). Projet réalisé dans le cadre de l'école 42.
+<p align="center">
+  <strong>Projet 42</strong>
+</p>
 
-> Le sujet complet du projet est disponible dans [SUBJECT.md](./SUBJECT.md).
+<p align="center">
+  <em>Serveur IRC développé en C++98 (RFC 1459)<br>Permet à plusieurs clients de communiquer en temps réel via TCP/IP (IPv4)<em>
+</p>
+
+</div>
+
+---
+
+
 
 ## Sommaire
 - [Fonctionnalités](#fonctionnalités)
@@ -245,8 +265,21 @@ valgrind --track-origins=yes --leak-check=full --track-fds=yes ./ircserv <port> 
 
 - **PING/PONG non implémenté** : les clients IRC se déconnectent après ~60 s d'inactivité (« Ping timeout » dans HexChat).
 
+---
+
 ## Auteurs
 
-- mvitiell
-- nminotte
-- alamizan
+**Alex Lamizana** : Étudiant 42 Angoulême, spécialisation Data & IA
+**mvitiell**
+**nminotte**
+
+- [Site](https://lamizana.github.io/ZehdBox/)
+- [GitHub](https://github.com/Lamizana)
+
+<div align="center">
+
+*Ce projet a été réalisé conformément à la norme et au sujet officiel de 42.*
+
+</div>
+
+---
