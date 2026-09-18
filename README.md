@@ -18,6 +18,10 @@
   <em>Serveur IRC développé en C++98 (RFC 1459)<br>Permet à plusieurs clients de communiquer en temps réel via TCP/IP (IPv4)<em>
 </p>
 
+<a href="https://lamizana.github.io/ZehdBox/projets/ft_irc/" target="_blank" rel="noopener noreferrer">
+  <img src="https://img.shields.io/badge/Portfolio-ZehdBox-8A2BE2?style=for-the-badge&logo=githubpages&logoColor=white" alt="Portfolio ZehdBox">
+</a>
+
 </div>
 
 ---
@@ -274,9 +278,6 @@ valgrind --track-origins=yes --leak-check=full --track-fds=yes ./ircserv <port> 
 **mvitiell**
 
 **nminotte**
-
-- [Site](https://lamizana.github.io/ZehdBox/)
-- [GitHub](https://github.com/Lamizana)
 
 <div align="center">
 
