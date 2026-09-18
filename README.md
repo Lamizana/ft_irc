@@ -270,7 +270,9 @@ valgrind --track-origins=yes --leak-check=full --track-fds=yes ./ircserv <port> 
 ## Auteurs
 
 **Alex Lamizana** : Étudiant 42 Angoulême, spécialisation Data & IA
+
 **mvitiell**
+
 **nminotte**
 
 - [Site](https://lamizana.github.io/ZehdBox/)
